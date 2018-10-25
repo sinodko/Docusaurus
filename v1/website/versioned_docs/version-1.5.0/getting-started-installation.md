@@ -4,7 +4,7 @@ title: Installation
 original_id: installation
 ---
 
-Docusaurus was _designed_ from the ground up to be easily [installed](https://nodejs.org/en/download/) and used to get your website up **and running** quickly.
+Docusaurus was _designed_ from the ground up to be easily [installed](https://nodejs.org/en/download/) and used to get your website up and **running** quickly.
 
 ## Installing Docusaurus
 
