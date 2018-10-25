@@ -29,6 +29,7 @@ class Doc extends React.Component {
           {language && <html lang={language} />}
           {language && <meta name="docsearch:language" content={language} />}
           {version && <meta name="docsearch:version" content={version} />}
+          <link rel="stylesheet" type="text/css" href="/css/main.css" />
         </Helmet>
         <Navbar docsMetadatas={docsMetadatas} />
         <Sidebar
@@ -38,7 +39,10 @@ class Doc extends React.Component {
         />
         <div className={styles.mainContainer}>
           <div className={styles.docContainer}>
-            <div className={styles.docContent}>{this.props.children}</div>
+            <div className={styles.docContent}>
+              <h1>{metadata.title}</h1>
+              {this.props.children}
+            </div>
             <div className={styles.paginatorContainer}>
               <DocsPaginator
                 docsMetadatas={docsMetadatas}

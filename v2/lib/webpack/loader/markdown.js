@@ -65,13 +65,12 @@ module.exports = function(fileString) {
   }
 
   /* Return a React component */
-  return (
-    `import React from 'react';\n` +
-    `import Markdown from '@theme/Markdown'\n` +
-    `export default () => (
-      <Markdown siteConfig={${JSON.stringify(siteConfig)}}>
-        {${JSON.stringify(content)}}
-      </Markdown>
-    );`
-  );
+  return `
+import React from 'react';
+import Markdown from '@theme/Markdown';
+export default () => (
+  <Markdown siteConfig={${JSON.stringify(siteConfig)}}>
+    {${JSON.stringify(content)}}
+  </Markdown>
+);`;
 };

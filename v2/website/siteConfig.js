@@ -4,4 +4,6 @@ module.exports = {
   organizationName: 'facebook',
   projectName: 'docusaurus',
   baseUrl: '/',
+  customDocsPath: '../docs',
+  url: 'https://docusaurus.io',
 };

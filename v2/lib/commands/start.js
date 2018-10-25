@@ -27,7 +27,6 @@ async function getPort(reqPort) {
 
 module.exports = async function start(siteDir, cliOptions = {}) {
   console.log('Start command invoked ...');
-  console.log(cliOptions);
 
   // Process all related files as a prop
   const props = await load(siteDir);
@@ -41,7 +40,12 @@ module.exports = async function start(siteDir, cliOptions = {}) {
     };
     const docsRelativeDir = props.siteConfig.customDocsPath;
     const fsWatcher = chokidar.watch(
-      [`../${docsRelativeDir}/**/*.md`, 'blog/**/*.md', 'siteConfig.js'],
+      [
+        `../${docsRelativeDir}/**/*.md`,
+        'blog/**/*.md',
+        'siteConfig.js',
+        'sidebars.json',
+      ],
       {
         cwd: siteDir,
         ignoreInitial: true,
