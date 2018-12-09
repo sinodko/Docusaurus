@@ -205,7 +205,6 @@ function execute(port) {
             />
           </Site>,
         );
-
         res.send(str);
       } else {
         res.send(fs.readFileSync(htmlFile, {encoding: 'utf8'}));

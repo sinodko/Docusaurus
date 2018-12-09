@@ -26,6 +26,22 @@ jest.mock('../env', () => ({
   },
 }));
 
+describe('isSeparateCss', () => {
+  const separatedDirst = '/path/to/separated/styles';
+  const filepath = '/path/to/separated/styles/styles.css';
+  test('allowed file', () => {
+    expect(utils.isSeparateCss(filepath, separatedDirst)).toEqual(true);
+  });
+  test('forbidden file', () => {
+    expect(utils.isSeparateCss(filepath, null)).toEqual(false);
+    expect(utils.isSeparateCss(filepath, undefined)).toEqual(false);
+  });
+  test('file is null/undefined', () => {
+    expect(utils.isSeparateCss(null, null)).toEqual(false);
+    expect(utils.isSeparateCss(undefined, undefined)).toEqual(false);
+  });
+});
+
 describe('server utils', () => {
   test('minify css', () => {
     const testCss = fs.readFileSync(

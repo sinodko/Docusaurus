@@ -55,9 +55,21 @@ const doc3 = fs.readFileSync(
   'utf8',
 );
 
+const doc4 = fs.readFileSync(
+  path.join(__dirname, '__fixtures__', 'doc4.md'),
+  'utf8',
+);
+
+const doc5 = fs.readFileSync(
+  path.join(__dirname, '__fixtures__', 'doc5.md'),
+  'utf8',
+);
+
 const rawContent1 = metadataUtils.extractMetadata(doc1).rawContent;
 const rawContent2 = metadataUtils.extractMetadata(doc2).rawContent;
 const rawContent3 = metadataUtils.extractMetadata(doc3).rawContent;
+const rawContent4 = metadataUtils.extractMetadata(doc4).rawContent;
+const rawContent5 = metadataUtils.extractMetadata(doc5).rawContent;
 
 describe('mdToHtmlify', () => {
   const mdToHtml = metadataUtils.mdToHtml(Metadata, '/');
@@ -104,6 +116,20 @@ describe('mdToHtmlify', () => {
     expect(content3).not.toContain('subdir/doc3.md');
     expect(content3).toMatchSnapshot();
     expect(content3).not.toEqual(rawContent3);
+  });
+});
+
+describe('getMarkup', () => {
+  const mdToHtml = metadataUtils.mdToHtml(Metadata, '/');
+
+  test('Is meta-description Markdown parsed to HTML', () => {
+    const content1 = docs.getMarkup(rawContent4, mdToHtml, Metadata['en-doc4']);
+    expect(content1).not.toMatch(/.+(\*\*Docusaurus\*\* is _the_ best).+/);
+
+    const content2 = docs.getMarkup(rawContent5, mdToHtml, Metadata['en-doc5']);
+    expect(content2).not.toMatch(
+      /^.*(description contains \[link]\(https:\/\/google\.com\) and !\[image]\(assets\/image1\.png\)).*$/,
+    );
   });
 });
 

@@ -13,13 +13,34 @@ const testFile = path.join(
   '__fixtures__',
   '2018-08-17-docusaurus.md',
 );
-
 fs.existsSync = jest.fn().mockReturnValue(true);
+
+jest.mock(`${process.cwd()}/siteConfig.js`, () => true, {virtual: true});
+
+describe('getPagesMarkup', () => {
+  test('null/undefined', () => {
+    expect(blog.getPostMarkup(null)).toBeNull();
+    expect(blog.getPostMarkup(undefined)).toBeNull();
+  });
+});
+
+describe('getPostMarkup', () => {
+  test('null/undefined', () => {
+    expect(blog.getPostMarkup(null, {})).toBeNull();
+    expect(blog.getPostMarkup(undefined, {})).toBeNull();
+  });
+  test('file does not exist', () => {
+    fs.existsSync.mockRestore();
+    expect(blog.getPostMarkup('/this/path/should/not/exist.md')).toBeNull();
+    fs.existsSync.mockReturnValue(true);
+  });
+});
 
 describe('getMetadata', () => {
   test('file does not exist', () => {
-    fs.existsSync.mockReturnValueOnce(null);
-    expect(blog.getMetadata('/this/path/does-not-exist/')).toBeNull();
+    fs.existsSync.mockRestore();
+    expect(blog.getMetadata('/this/path/does-not-existssss/')).toBeNull();
+    fs.existsSync.mockReturnValue(true);
   });
 
   test('null/undefined', () => {

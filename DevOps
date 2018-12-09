@@ -1,0 +1,7 @@
+nastroj - CircleCI
+
+vyuzitie - prettier - build - pre formatovanie kodu
+  - build - lint-staged - staticka analyza zmien pred commitom na git 
+  - test - pre automaticke testovanie
+  - deploy - publikovanie na npm
+  - deploy - automaticky deploy po schvaleni a mergnuti PR

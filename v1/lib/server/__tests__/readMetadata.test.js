@@ -5,7 +5,8 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-const {readSidebar} = require('../readMetadata');
+const path = require('path');
+const {readSidebar, processMetadata} = require('../readMetadata');
 const sidebarSubcategories = require('./__fixtures__/sidebar-subcategories');
 
 jest.mock('../env', () => ({
@@ -39,5 +40,22 @@ describe('readMetadata', () => {
       const items = readSidebar(sidebarSubcategories);
       expect(items).toMatchSnapshot();
     });
+  });
+});
+
+describe('processMetadata', () => {
+  test('transform link even in subdirectory', () => {
+    const ret = processMetadata(
+      path.join(__dirname, '__fixtures__', 'doc4.md'),
+      path.join(__dirname, '__fixtures__'),
+    );
+    expect(ret.metadata).toHaveProperty('id', 'en-doc4');
+    expect(ret.metadata).toHaveProperty('title', 'Document 4');
+    expect(ret.metadata).toHaveProperty('source', 'doc4.md');
+    expect(ret.metadata).toHaveProperty('version', 'next');
+    expect(ret.metadata).toHaveProperty('permalink', 'docs/en/next/doc4.html');
+    expect(ret.metadata).toHaveProperty('localized_id', 'doc4');
+    expect(ret.metadata).toHaveProperty('language', 'en');
+    expect(ret.rawContent).not.toBeNull();
   });
 });
